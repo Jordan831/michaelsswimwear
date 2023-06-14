@@ -24,7 +24,7 @@ export async function loader({params, context}) {
   }
 
   const {shop, hero} = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
-    variables: {handle: 'freestyle'},
+    variables: {handle: 'home'},
   });
 
   const seo = seoPayload.home();

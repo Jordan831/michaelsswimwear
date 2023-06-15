@@ -144,6 +144,7 @@ const LAYOUT_QUERY = `#graphql
     $language: LanguageCode
     $headerMenuHandle: String!
     $footerMenuHandle: String!
+    $footerMenuHandlesecond: String!
   ) @inContext(language: $language) {
     shop {
       ...Shop
@@ -154,6 +155,10 @@ const LAYOUT_QUERY = `#graphql
     footerMenu: menu(handle: $footerMenuHandle) {
       ...Menu
     }
+    footerMenusecond: menu(handle: $footerMenuHandlesecond) {
+      ...Menu
+    }
+    
   }
   fragment Shop on Shop {
     id
@@ -198,8 +203,9 @@ const LAYOUT_QUERY = `#graphql
 async function getLayoutData({storefront}) {
   const data = await storefront.query(LAYOUT_QUERY, {
     variables: {
-      headerMenuHandle: 'main-menu',
-      footerMenuHandle: 'footer',
+      headerMenuHandle: 'hydrogen-header-menu',
+      footerMenuHandle: 'hydrogen-footer',
+      footerMenuHandlesecond: 'hydrogen-header-menu',
       language: storefront.i18n.language,
     },
   });
@@ -223,8 +229,12 @@ async function getLayoutData({storefront}) {
   const footerMenu = data?.footerMenu
     ? parseMenu(data.footerMenu, customPrefixes)
     : undefined;
+    const footerMenusecond = data?.footerMenusecond
+    ? parseMenu(data.footerMenusecond, customPrefixes)
+    : undefined;
+    
 
-  return {shop: data.shop, headerMenu, footerMenu};
+  return {shop: data.shop, headerMenu, footerMenusecond};
 }
 
 const CART_QUERY = `#graphql

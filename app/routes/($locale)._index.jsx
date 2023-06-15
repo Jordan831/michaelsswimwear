@@ -22,6 +22,12 @@ export async function loader({params, context}) {
     // the the locale param must be invalid, send to the 404 page
     throw new Response(null, {status: 404});
   }
+  const handle = '2023-boys-swim-trunks';
+  const {collection} = await context.storefront.query(COLLECTION_HOME, {
+    variables: {
+      handle,
+    },
+  });
 
   const {shop, hero} = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
     variables: {handle: 'home'},
@@ -31,6 +37,7 @@ export async function loader({params, context}) {
 
   return defer({
     shop,
+    homecollection:collection,
     primaryHero: hero,
     // These different queries are separated to illustrate how 3rd party content
     // fetching can be optimized for both above and below the fold.
@@ -77,13 +84,14 @@ export async function loader({params, context}) {
 
 export default function Homepage() {
   const {
+    homecollection,
     primaryHero,
     secondaryHero,
     tertiaryHero,
     featuredCollections,
     featuredProducts,
   } = useLoaderData();
-
+ 
   // TODO: skeletons vs placeholders
   const skeletons = getHeroPlaceholder([{}, {}, {}]);
 
@@ -93,22 +101,7 @@ export default function Homepage() {
         <Hero {...primaryHero} height="full" top loading="eager" />
       )}
 
-      {featuredProducts && (
-        <Suspense>
-          <Await resolve={featuredProducts}>
-            {({products}) => {
-              if (!products?.nodes) return <></>;
-              return (
-                <ProductSwimlane
-                  products={products}
-                  title="Featured Products"
-                  count={4}
-                />
-              );
-            }}
-          </Await>
-        </Suspense>
-      )}
+      
 
       {secondaryHero && (
         <Suspense fallback={<Hero {...skeletons[1]} />}>
@@ -129,14 +122,34 @@ export default function Homepage() {
               return (
                 <FeaturedCollections
                   collections={collections}
-                  title="Collections"
+                  title="Top Selling Collections"
                 />
               );
             }}
           </Await>
         </Suspense>
       )}
+{
+        homecollection && (
+          <Suspense>
+            <Await resolve={homecollection}>
+              {
+                ({products})=>{
+                  if (!products?.nodes) return <></>;
+                  return (
+                    <ProductSwimlane
+                      products={products}
+                      title="Top Selling Products"
+                      count={4}
+                    />
+                  );
 
+                }
+              }
+            </Await>
+          </Suspense>
+        )
+      }
       {tertiaryHero && (
         <Suspense fallback={<Hero {...skeletons[2]} />}>
           <Await resolve={tertiaryHero}>
@@ -222,7 +235,8 @@ export const FEATURED_COLLECTIONS_QUERY = `#graphql
   query homepageFeaturedCollections($country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
     collections(
-      first: 4,
+      first: 8,
+      query:"mens-solid-crew-neck-t-shirts OR 2023-mens-swim-trucks OR father-son OR 2023-boys-swim-trunks",
       sortKey: UPDATED_AT
     ) {
       nodes {
@@ -234,6 +248,45 @@ export const FEATURED_COLLECTIONS_QUERY = `#graphql
           width
           height
           url
+        }
+      }
+    }
+  }
+`;
+
+
+const COLLECTION_HOME = `#graphql
+  query CollectionDetails($handle: String!) {
+    collection(handle: $handle) {
+      id
+      title
+      description
+      handle
+      products(first: 8) {
+        nodes {
+          id
+          title
+          publishedAt
+          handle
+          variants(first: 1) {
+            nodes {
+              id
+              image {
+                url
+                altText
+                width
+                height
+              }
+              price {
+                amount
+                currencyCode
+              }
+              compareAtPrice {
+                amount
+                currencyCode
+              }
+            }
+          }
         }
       }
     }

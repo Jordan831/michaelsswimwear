@@ -43,7 +43,6 @@ export function Layout({children, layout}) {
     </>
   );
 }
-
 function Header({title, menu}) {
   const isHome = useIsHomePath();
 

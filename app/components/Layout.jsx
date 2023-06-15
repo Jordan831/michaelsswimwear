@@ -407,12 +407,10 @@ function Footer({menu,menusecond}) {
             <path
               d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03zM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 00.372-.648V7.93zM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 00.372.648l8.628 5.033z" />
           </svg>
-          Tailwind ELEMENTS
+          Michael's Swimwear
         </h6>
         <p>
-          Here you can use rows and columns to organize your footer
-          content. Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit.
+       <i> For over 35 years, I've passionately crafted Men's apparel, and I couldn't find the ideal swim trunk. Determined to create perfection, I've designed swimwear that combines impeccable fit, vibrant colors, and exquisite prints. Elevate your swimwear collection with our exceptional creations.</i>
         </p>
       </div>
   

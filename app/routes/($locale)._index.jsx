@@ -30,11 +30,11 @@ export async function loader({params, context}) {
   });
 
   const {shop, hero} = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
-    variables: {handle: 'home'},
+    variables: {handle: 'home'}
   });
-
+ 
   const seo = seoPayload.home();
-
+ 
   return defer({
     shop,
     homecollection:collection,
@@ -102,18 +102,6 @@ export default function Homepage() {
       )}
 
       
-
-      {secondaryHero && (
-        <Suspense fallback={<Hero {...skeletons[1]} />}>
-          <Await resolve={secondaryHero}>
-            {({hero}) => {
-              if (!hero) return <></>;
-              return <Hero {...hero} />;
-            }}
-          </Await>
-        </Suspense>
-      )}
-
       {featuredCollections && (
         <Suspense>
           <Await resolve={featuredCollections}>

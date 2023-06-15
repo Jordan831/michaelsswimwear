@@ -234,7 +234,7 @@ async function getLayoutData({storefront}) {
     : undefined;
     
 
-  return {shop: data.shop, headerMenu, footerMenusecond};
+  return {shop: data.shop, headerMenu,footerMenu, footerMenusecond};
 }
 
 const CART_QUERY = `#graphql

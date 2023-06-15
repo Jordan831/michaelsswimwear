@@ -140,7 +140,7 @@ export function PageHeader({
   ...props
 }) {
   const variants = {
-    default: 'grid w-full gap-8 p-6 py-8 md:p-8 lg:p-12 justify-items-start',
+    default: 'grid w-full gap-8 p-6 py-8 md:px-8 md:py-2 lg:px-12 lg:py-2 justify-items-start',
     blogPost:
       'grid md:text-center w-full gap-4 p-6 py-8 md:p-8 lg:p-12 md:justify-items-center',
     allCollections:

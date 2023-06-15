@@ -134,7 +134,7 @@ export default function Collection() {
           </div>
         )}
       </PageHeader>
-      <Section>
+      <Section  className="w-full gap-4 md:gap-0 grid px-6 md:px-8 md:py-0 lg:px-12 lg:py-0 border-none">
         <SortFilter
           filters={collection.products.filters}
           appliedFilters={appliedFilters}

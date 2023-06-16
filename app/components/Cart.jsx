@@ -356,15 +356,7 @@ export function CartEmpty({hidden = false, layout = 'drawer', onClose}) {
           <Button onClick={onClose}>Continue shopping</Button>
         </div>
       </section>
-      <section className="grid gap-8 pt-16">
-        <FeaturedProducts
-          count={4}
-          heading="Shop Best Sellers"
-          layout={layout}
-          onClose={onClose}
-          sortKey="BEST_SELLING"
-        />
-      </section>
+      
     </div>
   );
 }

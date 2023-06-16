@@ -70,7 +70,7 @@ export default function Homepage() {
   return (
     <>
       {primaryHero && (
-        <Hero {...primaryHero} height="full"  loading="eager" />
+        <Hero {...primaryHero} height="full"   loading="eager" />
       )}
 
       

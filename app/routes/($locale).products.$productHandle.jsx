@@ -98,8 +98,8 @@ export default function Product() {
 
   return (
     <>
-      <Section className="px-0 md:px-8 lg:px-12">
-        <div className="grid items-start md:gap-6 lg:gap-20 md:grid-cols-2 lg:grid-cols-3">
+      <div className="px-0 md:px-8 lg:px-12">
+        <div className="flex flex-wrap items-start gap-6 md:gap-6 lg:gap-20 md:grid md:grid-cols-2 lg:grid-cols-3">
           <ProductGallery
             media={media.nodes}
             className="w-full lg:col-span-2"
@@ -138,7 +138,7 @@ export default function Product() {
             </section>
           </div>
         </div>
-      </Section>
+      </div>
       <Suspense fallback={<Skeleton className="h-32" />}>
         <Await
           errorElement="There was a problem loading related products"

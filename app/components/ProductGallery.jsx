@@ -10,7 +10,7 @@ export function ProductGallery({media, className}) {
 
   return (
     <div
-      className={`swimlane md:grid-flow-row hiddenScroll md:p-0 md:overflow-x-auto md:grid-cols-2 ${className}`}
+      className={`swimlane md:grid-flow-row hiddenScroll md:p-0 md:overflow-x-auto md:grid-cols-4 ${className}`}
     >
       {media.map((med, i) => {
         const isFirst = i === 0;

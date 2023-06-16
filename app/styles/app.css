@@ -180,3 +180,22 @@ shop-pay-button {
     }
   }
 }
+
+.slick-next {
+  right: 10px !important;
+  background: rgb(243, 243, 243) !important;
+  border-radius: 7px;
+}
+
+.slick-prev {
+  left: 10px !important; 
+  z-index: 2;
+  background: rgb(243, 243, 243) !important;
+  border-radius: 7px;
+}
+
+
+.slick-prev:before,
+.slick-next:before {
+  color: rgb(0, 0, 0) !important
+}

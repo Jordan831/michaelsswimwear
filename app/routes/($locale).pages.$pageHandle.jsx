@@ -35,7 +35,7 @@ export default function Page() {
       <PageHeader heading={page.title}>
         <div
           dangerouslySetInnerHTML={{__html: page.body}}
-          className="prose dark:prose-invert"
+          className="dark:prose-invert"
         />
       </PageHeader>
     </>

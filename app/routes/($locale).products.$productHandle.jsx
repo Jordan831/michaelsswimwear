@@ -110,9 +110,7 @@ export default function Product() {
                 <Heading as="h1" className="whitespace-normal">
                   {title}
                 </Heading>
-                {vendor && (
-                  <Text className={'opacity-50 font-medium'}>{vendor}</Text>
-                )}
+                
               </div>
               <ProductForm />
               <div className="grid gap-4 py-4">
@@ -331,7 +329,7 @@ function ProductOptions({options, searchParamsWithDefaults}) {
                                   optionName={option.name}
                                   optionValue={value}
                                   className={clsx(
-                                    'text-primary w-full p-2 transition rounded flex justify-start items-center text-left cursor-pointer',
+                                    'text-primary w-full p-2 transition  rounded flex justify-start items-center text-left cursor-pointer',
                                     active && 'bg-primary/10',
                                   )}
                                   searchParams={searchParamsWithDefaults}
@@ -569,7 +567,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
 
 async function getRecommendedProducts(storefront, productId) {
   const products = await storefront.query(RECOMMENDED_PRODUCTS_QUERY, {
-    variables: {productId, count: 12},
+    variables: {productId, count: 4},
   });
 
   invariant(products, 'No data returned from Shopify API');
@@ -586,6 +584,8 @@ async function getRecommendedProducts(storefront, productId) {
   );
 
   mergedProducts.splice(originalProduct, 1);
-
+  if (mergedProducts.length > 4) {
+    mergedProducts.splice(4); // Remove all elements after the fourth element
+  }
   return {nodes: mergedProducts};
 }

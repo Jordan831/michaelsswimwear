@@ -41,40 +41,14 @@ export async function loader({params, context}) {
     primaryHero: hero,
     // These different queries are separated to illustrate how 3rd party content
     // fetching can be optimized for both above and below the fold.
-    featuredProducts: context.storefront.query(
-      HOMEPAGE_FEATURED_PRODUCTS_QUERY,
-      {
-        variables: {
-          /**
-           * Country and language properties are automatically injected
-           * into all queries. Passing them is unnecessary unless you
-           * want to override them from the following default:
-           */
-          country,
-          language,
-        },
-      },
-    ),
-    secondaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
-      variables: {
-        handle: 'backcountry',
-        country,
-        language,
-      },
-    }),
+   
     featuredCollections: context.storefront.query(FEATURED_COLLECTIONS_QUERY, {
       variables: {
         country,
         language,
       },
     }),
-    tertiaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
-      variables: {
-        handle: 'winter-2022',
-        country,
-        language,
-      },
-    }),
+    
     analytics: {
       pageType: AnalyticsPageType.home,
     },
@@ -86,10 +60,8 @@ export default function Homepage() {
   const {
     homecollection,
     primaryHero,
-    secondaryHero,
-    tertiaryHero,
     featuredCollections,
-    featuredProducts,
+    
   } = useLoaderData();
  
   // TODO: skeletons vs placeholders
@@ -98,7 +70,7 @@ export default function Homepage() {
   return (
     <>
       {primaryHero && (
-        <Hero {...primaryHero} height="full" top loading="eager" />
+        <Hero {...primaryHero} height="full"  loading="eager" />
       )}
 
       
@@ -138,16 +110,7 @@ export default function Homepage() {
           </Suspense>
         )
       }
-      {tertiaryHero && (
-        <Suspense fallback={<Hero {...skeletons[2]} />}>
-          <Await resolve={tertiaryHero}>
-            {({hero}) => {
-              if (!hero) return <></>;
-              return <Hero {...hero} />;
-            }}
-          </Await>
-        </Suspense>
-      )}
+  
     </>
   );
 }
@@ -195,28 +158,9 @@ const HOMEPAGE_SEO_QUERY = `#graphql
   ${COLLECTION_CONTENT_FRAGMENT}
 `;
 
-const COLLECTION_HERO_QUERY = `#graphql
-  query heroCollectionContent($handle: String, $country: CountryCode, $language: LanguageCode)
-  @inContext(country: $country, language: $language) {
-    hero: collection(handle: $handle) {
-      ...CollectionContent
-    }
-  }
-  ${COLLECTION_CONTENT_FRAGMENT}
-`;
 
-// @see: https://shopify.dev/api/storefront/2023-04/queries/products
-export const HOMEPAGE_FEATURED_PRODUCTS_QUERY = `#graphql
-  query homepageFeaturedProducts($country: CountryCode, $language: LanguageCode)
-  @inContext(country: $country, language: $language) {
-    products(first: 8) {
-      nodes {
-        ...ProductCard
-      }
-    }
-  }
-  ${PRODUCT_CARD_FRAGMENT}
-`;
+
+
 
 // @see: https://shopify.dev/api/storefront/2023-04/queries/collections
 export const FEATURED_COLLECTIONS_QUERY = `#graphql

@@ -59,13 +59,7 @@ export function ProductCard({
                 loading={loading}
               />
             )}
-            <Text
-              as="label"
-              size="fine"
-              className="absolute top-0 right-0 m-4 text-right text-notice "
-            >
-              {cardLabel}
-            </Text>
+            
           </div>
           <div className="grid gap-1 text-center">
             <Text

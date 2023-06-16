@@ -17,7 +17,8 @@ import {
   Cart,
   CartLoading,
   Link,
-} from '~/components';
+} from '~/components'; 
+import logo from "../.././public/logonew.png";
 import {useIsHomePath} from '~/lib/utils';
 import {useIsHydrated} from '~/hooks/useIsHydrated';
 import {useCartFetchers} from '~/hooks/useCartFetchers';
@@ -145,10 +146,10 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
   return (
     <header
       role="banner"
-      className={`${
+      className={`bg-black text-white ${
         isHome
-          ? 'bg-primary/80 dark:bg-contrast/60 text-contrast dark:text-primary shadow-darkHeader'
-          : 'bg-contrast/80 text-primary'
+          ? ' text-white dark:text-primary shadow-darkHeader'
+          : 'text-primary'
       } flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 px-4 md:px-8`}
     >
       <div className="flex items-center justify-start w-full gap-4">
@@ -191,7 +192,7 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
           className="font-bold text-center leading-none"
           as={isHome ? 'h1' : 'h2'}
         >
-          {title}
+        <img src={logo} alt='logo-swim' width={100} />
         </Heading>
       </Link>
 
@@ -209,17 +210,19 @@ function DesktopHeader({isHome, menu, openCart, title}) {
   return (
     <header
       role="banner"
-      className={`${
+      className={`text-white ${
         isHome
-          ? 'bg-primary/80 dark:bg-contrast/60 text-contrast dark:text-primary shadow-darkHeader'
-          : 'bg-contrast/80 text-primary'
+          ? '  text-contrast dark:text-primary shadow-darkHeader bg-black'
+          : ' text-primary bg-black'
       } ${
-        !isHome && y > 50 && ' shadow-lightHeader'
-      } hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-8`}
+        !isHome && y > 50 && ' bg-black shadow-lightHeader'
+      } bg-black hidden h-nav lg:flex items-center sticky transition duration-300 
+      backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-8`}
+      
     >
-      <div className="flex gap-12">
+      <div className="flex gap-12 items-center">
         <Link className="font-bold" to="/" prefetch="intent">
-          {title}
+        <img src={logo} alt='logo-swim' width={190} />
         </Link>
         <nav className="flex gap-8">
           {/* Top level menu items */}
@@ -391,7 +394,7 @@ function Footer({menu,menusecond}) {
 
   
   <div className="mx-6 py-10 text-center md:text-left">
-    <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid-cols-1 grid gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4">
      
       <div className="">
         <h6
